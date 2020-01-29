@@ -355,7 +355,7 @@ class AbstractRefreshToken(models.Model):
     updated = models.DateTimeField(auto_now=True)
     revoked = models.DateTimeField(null=True)
 
-     def revoke(self):
+    def revoke(self):
         """
         Mark this refresh token revoked and revoke related access token
         """
@@ -376,7 +376,7 @@ class AbstractRefreshToken(models.Model):
             self.access_token = None
             self.revoked = timezone.now()
             self.save()
-            
+
     def __str__(self):
         return self.token
 
