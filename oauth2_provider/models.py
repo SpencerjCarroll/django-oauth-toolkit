@@ -363,7 +363,7 @@ class AbstractRefreshToken(models.Model):
         refresh_token_model = get_refresh_token_model()
         with transaction.atomic():
             try:
-                self = refresh_token_model.select_for_update().get(
+                self = refresh_token_model.objects.select_for_update().get(
                     pk=self.pk, revoked__isnull=True
                 )
             except refresh_token_model.DoesNotExist:
