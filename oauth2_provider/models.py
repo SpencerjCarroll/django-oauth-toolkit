@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db import models, transaction
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .compat import parse_qsl, urlparse
 from .generators import generate_client_id, generate_client_secret
