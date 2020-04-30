@@ -4,7 +4,7 @@ import re
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import ugettext_lazy as _
 
 from .compat import urlsplit, urlunsplit
@@ -28,7 +28,7 @@ class URIValidator(RegexValidator):
         except ValidationError as e:
             # Trivial case failed. Try for possible IDN domain
             if value:
-                value = force_text(value)
+                value = force_str(value)
                 try:
                     scheme, netloc, path, query, fragment = urlsplit(value)
                 except ValueError as e:
@@ -51,7 +51,7 @@ class RedirectURIValidator(URIValidator):
 
     def __call__(self, value):
         super(RedirectURIValidator, self).__call__(value)
-        value = force_text(value)
+        value = force_str(value)
         if len(value.split("#")) > 1:
             raise ValidationError("Redirect URIs must not contain fragments")
         scheme, netloc, path, query, fragment = urlsplit(value)
